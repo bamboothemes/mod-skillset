@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="module" version="2.5.0" client="site" method="upgrade">
-	<name>Zenskills</name>
+	<name>Skillset</name>
 	<author>Joomla Bamboo</author>
 	<creationDate>March 19, 2014</creationDate>
 	<copyright>Copyright (c) 2014 Copyright (C), Joomlabamboo. All Rights Reserved.. All rights reserved.</copyright>
@@ -10,14 +10,14 @@
 	<version>${jb.latest}</version>
 	<description>ZenSkills List.</description>
 	<files>
-		<filename module="mod_zenskills">mod_zenskills.php</filename>
+		<filename module="mod_skillset">mod_skillset.php</filename>
 		<folder>css</folder>
 		<filename>index.html</filename>
 		<filename>helper.php</filename>
 		<folder>tmpl</folder>
 	</files>
 	<config>
-		<fields name="params" addfieldpath="/modules/mod_zenskills/fields">
+		<fields name="params" addfieldpath="/modules/mod_skillset/fields">
 			<fieldset  name="general" group="general" label="General Settings">
 				<field name="color" type="color" label="" description="" />
             	<field name="scripts" type="scripts" label="" description="" />

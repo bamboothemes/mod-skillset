@@ -13,10 +13,10 @@ require_once dirname(__FILE__) . '/helper.php';
 
 $class_sfx = htmlspecialchars($params->get('class_sfx'));
 
-require(JModuleHelper::getLayoutPath('mod_zenskills', $params->get('layout', 'default')));
+require(JModuleHelper::getLayoutPath('mod_skillset', $params->get('layout', 'default')));
 
 if($params->get('css-load')) {
-	JHtml::stylesheet(Juri::base() . 'modules/mod_zenskills/css/zenskills.css');
+	JHtml::stylesheet(Juri::base() . 'modules/mod_skillset/css/skillset.css');
 }
 
 if($params->get('jquery-load')) {

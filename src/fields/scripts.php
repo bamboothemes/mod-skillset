@@ -25,10 +25,8 @@ class JFormFieldScripts extends JFormField
 
 	protected function getInput()
 	{
-
 		$document = JFactory::getDocument();
 		$root = JURI::root();
-
 
 		if (version_compare(JVERSION, '3.0', '<'))
 		{
@@ -40,31 +38,39 @@ class JFormFieldScripts extends JFormField
 		
 		}
 
-		ob_start();
-
-		?>
+		ob_start();?>
 		
-			<div id="skills-demo">
+		
+		<!-- Container for preview in admin -->
+		<div id="skills-demo"></div>
+		
+		<!-- Colour inspiration -->
+		<div id="help-panel" class="panel"
+			<h3>You can click on a skill bar to change it's color.</h3>
+			<p class="pull-right" style="margin-top: -4px">Need some colour inspiration?  <a class="btn btn-success" style="margin:0 0 8px 20px" href="https://kuler.adobe.com/explore/most-popular/?time=month">Visit Kuler</a>
+			</p>
+		</div>
 			
-			
-			</div>
-			
-			
-			
+		<!-- Add a new skill button -->	
 		<a class="new-skill btn btn-success" style="margin: 30px 0" >Add a new skill</a>
-			<div id="skills-field">
-			</div>
+		
+		<!-- Container for the skills -->
+		<div id="skills-field"></div>
 			<div id="holder"></div>
 			<script type="text/javascript">
 			
 				jQuery(document).ready(function() {
 				
-					// A a new skillset
+					// Set values and load demo
+					setvalues();
+					triggerdemo();
+				
+					// Make sure values are set when user hits save
 					jQuery("button").on('click', function() {
 						getvalues();
 					});
 					
-				
+					// The template for creatinmg the inputs
 					var skillform = '<fieldset><input type="text" class="skill input-large" placeholder="Type your skill…"><br /><br /><input class="skill-level input-large" type="text" placeholder="Type your skill level"><input class="color" type="text" value="#e67e22,#d35400"><br /><br /><a class="remove-skill btn btn-danger">Remove skill</a><br /><br /><br /><br /><div style="border-bottom:1px solid #eee;margin-bottom: 30px;"></div></fieldset>';
 					
 					
@@ -78,47 +84,45 @@ class JFormFieldScripts extends JFormField
 					// Remove a skillset
 					jQuery(".remove-skill").live('click', function() {
 						jQuery(this).parent().remove();	
-						
 						getvalues();
 						triggerdemo();
-						
+
 						return false;
 					});
 					
 					
+					// Get values on blur
 					jQuery( "#skills-field input" ).live('blur', function() {
-						
 						getvalues();
 						triggerdemo();
-					
 					});
 					
-					setvalues();
-					triggerdemo();
 					
+					// Fade in colour wheel
+					// Get the skill and corresponding skill info we just activated
 					jQuery('#skills-demo .zen-skillbar').live('click', function() {
 						jQuery('#skills-demo .zen-skillbar').removeClass('active').addClass('inactive');
 						jQuery(this).removeClass('inactive').addClass('active');
 						jQuery('.minicolors').fadeIn();
-						
-						// `this` is the DOM element that was clicked
-						  var index = jQuery( "#skills-demo .zen-skillbar" ).index( this ) + 1;
-						  jQuery('#skills-field fieldset').removeClass('active');
-						  jQuery('#skills-field fieldset:nth-child('+index+')').addClass('active');
-				
+					  	var index = jQuery( "#skills-demo .zen-skillbar" ).index( this ) + 1;
+					  	jQuery('#skills-field fieldset').removeClass('active');
+					  	jQuery('#skills-field fieldset:nth-child('+index+')').addClass('active');
 					});
 					
 					
+					// On bind - live is deprecated in J1.9 +
 					jQuery('#jform_params_color').live('bind', function() {
 						getcolors() 
 						getvalues();
 					});
 					
+					// On Blur
 					jQuery('#jform_params_color').live('blur', function() {
 						getcolors() 
 						getvalues();
 					});
 					
+					// On click
 					jQuery('.minicolors span').live('click', function() {
 						getcolors() 
 						getvalues();
@@ -128,9 +132,7 @@ class JFormFieldScripts extends JFormField
 					function setvalues() {
 						
 						jQuery('#skills-demo').empty();
-						
 						var skills = jQuery('#jform_params_skills').val();
-						
 						skills = skills.split('|');
 						
 						jQuery(skills).each(function( key, value) {
@@ -158,17 +160,19 @@ class JFormFieldScripts extends JFormField
 					
 					function triggerdemo() {
 						
+						
+						if(jQuery('.zen-skillbar').length) {
+							jQuery('#help-panel').fadeIn();
+						}
+						
 						jQuery('#skills-demo').empty();
-						
 						var skills = jQuery('#jform_params_skills').val();
-						
 						skills = skills.split('|');
 						
 						jQuery(skills).each(function( key, value) {
 							if(value !=="") {
-							
 								var items = value.split(',');		
-									
+		
 								jQuery("#skills-demo").append('<div class="zen-skillbar clearfix " data-percent="'+ items[1] + '"><div class="zen-skillbar-title" style="background: '+ items[3]+'"><span>'+ items[0] + '</span></div><div class="zen-skillbar-bar" style="background:'+ items[2]+'"></div><div class="zen-skill-bar-percent">'+ items[1] + '</div></div> <!-- End Skill Bar -->');
 								
 							}
@@ -231,8 +235,18 @@ class JFormFieldScripts extends JFormField
 				});
 			</script>
 			
+			<!-- I know this isnt valid but prob wont matter too much -->
 			<style>
 			
+			.panel {
+				display: none;
+				padding: 15px;
+				background: #fafafa;
+				color: #666;
+				font-weight: 300;
+				border: 1px solid #e5e5e5;
+				border-radius: 4px;
+			}
 			.minicolors,
 			input.color,
 			#jform_params_skills,
