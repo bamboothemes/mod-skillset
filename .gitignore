@@ -2,3 +2,5 @@
 *.properties
 
 build.xml
+
+src/mod_skillset15.xml
