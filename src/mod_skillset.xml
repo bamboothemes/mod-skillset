@@ -28,6 +28,10 @@
 	<config>
 		<fields name="params" addfieldpath="/modules/mod_skillset/fields">
 			<fieldset  name="general" group="general" label="General Settings">
+				<field name="display" type="radio" default="1" label="Load CSS?" description="Determines whether the output of the module is in a line graph or counts through numbers." class="btn-group">
+				  <option value="skills">Skills</option>
+				  <option value="count">Count</option>
+				</field>
 				<field name="color" type="color" label="" description="" />
             	<field name="scripts" type="scripts" label="" description="" />
 				<field name="skills" type="text" default="" label="Skills" description=""></field>

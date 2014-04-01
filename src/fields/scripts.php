@@ -43,7 +43,7 @@ class JFormFieldScripts extends JFormField
 		
 		<!-- Container for preview in admin -->
 		<div id="skills-demo"></div>
-		
+		<div style="clear:both"></div>
 		<!-- Colour inspiration -->
 		<div id="help-panel" class="panel"
 			<h3>You can click on a skill bar to change it's color.</h3>
@@ -63,8 +63,30 @@ class JFormFieldScripts extends JFormField
 				
 					// Set values and load demo
 					setvalues();
-					triggerdemo();
-				
+					
+					if(jQuery("label[for='jform_params_display0']").hasClass('active')) {
+						triggerdemo();
+					} 
+					
+					else {
+						countupdemo()
+					}
+					
+					// Toggle demos on click
+					jQuery('#jform_params_display').click(function() {
+					
+						if(jQuery("label[for='jform_params_display0']").hasClass('active')) {
+							triggerdemo();
+						} 
+						
+						else {
+							countupdemo()
+						}
+					
+					});
+					
+					
+					
 					// Make sure values are set when user hits save
 					jQuery("button").on('click', function() {
 						getvalues();
@@ -85,7 +107,15 @@ class JFormFieldScripts extends JFormField
 					jQuery(".remove-skill").live('click', function() {
 						jQuery(this).parent().remove();	
 						getvalues();
-						triggerdemo();
+						
+						
+						if(jQuery("label[for='jform_params_display0']").hasClass('active')) {
+							triggerdemo();
+						} 
+						
+						else {
+							countupdemo()
+						}
 
 						return false;
 					});
@@ -94,7 +124,14 @@ class JFormFieldScripts extends JFormField
 					// Get values on blur
 					jQuery( "#skills-field input" ).live('blur', function() {
 						getvalues();
-						triggerdemo();
+						
+						if(jQuery("label[for='jform_params_display0']").hasClass('active')) {
+							triggerdemo();
+						} 
+						
+						else {
+							countupdemo()
+						}
 					});
 					
 					
@@ -160,20 +197,26 @@ class JFormFieldScripts extends JFormField
 					
 					function triggerdemo() {
 						
-						
 						if(jQuery('.zen-skillbar').length) {
 							jQuery('#help-panel').fadeIn();
 						}
 						
 						jQuery('#skills-demo').empty();
 						var skills = jQuery('#jform_params_skills').val();
+						
+						if (skills.indexOf("%") >= 0) {
+							alert('Please just add a whole number here without a % sign.');
+							return;
+						}
+						
+						
 						skills = skills.split('|');
 						
 						jQuery(skills).each(function( key, value) {
 							if(value !=="") {
 								var items = value.split(',');		
 		
-								jQuery("#skills-demo").append('<div class="zen-skillbar clearfix " data-percent="'+ items[1] + '"><div class="zen-skillbar-title" style="background: '+ items[3]+'"><span>'+ items[0] + '</span></div><div class="zen-skillbar-bar" style="background:'+ items[2]+'"></div><div class="zen-skill-bar-percent">'+ items[1] + '</div></div> <!-- End Skill Bar -->');
+								jQuery("#skills-demo").append('<div class="zen-skillbar clearfix " data-percent="'+ items[1] + '%"><div class="zen-skillbar-title" style="background: '+ items[3]+'"><span>'+ items[0] + '</span></div><div class="zen-skillbar-bar" style="background:'+ items[2]+'"></div><div class="zen-skill-bar-percent">'+ items[1] + '%</div></div> <!-- End Skill Bar -->');
 								
 							}
 						});
@@ -184,6 +227,37 @@ class JFormFieldScripts extends JFormField
 									width:jQuery(this).attr('data-percent')
 								},3000);
 						});
+					}
+					
+				
+					
+					function countupdemo() {
+						
+						jQuery('#help-panel').fadeOut();
+						
+						jQuery('#skills-demo').empty();
+						
+						var skills = jQuery('#jform_params_skills').val();
+						
+						if (skills.indexOf("%") >= 0) {
+							
+							alert('Count up values need to be in whole numbers and not percentages.');
+							return;
+						}
+						skills = skills.split('|');
+						
+											
+						jQuery(skills).each(function( key, value) {
+							
+							if(value !=="") {
+								var items = value.split(',');	
+								total = items[1];
+								jQuery('#skills-demo').append('<div id="count-' + key + '" class="skill-count-item skill-count-item' + key +'"><h2></h2><p><strong>' + items[0] + '</strong></p></div>');
+							
+								countup('#count-' + key + ' h2', total);
+							}
+						});
+						
 					}
 					
 					function getvalues() {
@@ -231,6 +305,25 @@ class JFormFieldScripts extends JFormField
 					
 						return rgb;
 					}
+					
+					
+					function countup(element, total) {
+					   
+					    var current = 0;
+					    var finish = total;
+					    var miliseconds = 1000;
+					    var rate = 1;
+						
+						total = total.replace('');
+						
+						if(current == 0) {
+						    var counter = setInterval(function(){
+						         if(current >= finish) clearInterval(counter);
+						         jQuery(element).text(current);
+						         current = parseInt(current) + parseInt(rate);
+						    }, miliseconds / (finish / rate));
+						}
+					};
 
 				});
 			</script>
@@ -336,6 +429,44 @@ class JFormFieldScripts extends JFormField
 				line-height:35px;
 				color:#ffffff;
 				color:rgba(0, 0, 0, 0.4);}
+				
+				
+				
+				/* --- Skill Count --*/
+					
+				.skill-count-item {
+					float: left;
+					margin-left: 2%;
+					text-align: center;
+				}
+				
+				.skill-count-item0 {
+					margin-left: 0;
+				}
+				
+				.skill-count-items-1 {
+					width: 100%;
+					margin: 0;
+				}
+				
+				.skill-count-items-2 {
+					width: 48%;	
+				}
+				
+				.skill-count-items-3 {
+					width: 31%;	
+				}
+				
+				.skill-count-items-4 {
+					width: 23%;	
+				}
+				
+				@media screen and (max-width:620px) {
+					.skill-count-item {
+						width: 100%;
+						margin: 0;
+					}
+				}
 				</style>
 			<?php
 
