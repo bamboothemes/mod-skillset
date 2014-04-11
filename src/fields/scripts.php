@@ -31,22 +31,25 @@ class JFormFieldScripts extends JFormField
 		if (version_compare(JVERSION, '3.0', '<'))
 		{
 			$document->addScript(''.$root.'modules/mod_zensocial/js/admin/jquery-1.8.3.min.js');
-			$document->addScript(''.$root.'modules/mod_zensocial/js/admin/jquery.noconflict.js');
+			$document->addScript(''.$root.'modules/mod_zensocial/js/admin/jquery.noconflict.js');	
 		}
 		else
 		{
 		
 		}
+		
+		
+		$document->addScript(''.$root.'modules/mod_skillset/js/jquery.circliful.min.js');
 
 		ob_start();?>
 		
 		
 		<!-- Container for preview in admin -->
-		<div id="skills-demo"></div>
+		<div id="skills-demo" style="width:90%"></div>
 		<div style="clear:both"></div>
 		<!-- Colour inspiration -->
 		<div id="help-panel" class="panel"
-			<h3>You can click on a skill bar to change it's color.</h3>
+			<h3>You can click on an item to change it's color.</h3>
 			<p class="pull-right" style="margin-top: -4px">Need some colour inspiration?  <a class="btn btn-success" style="margin:0 0 8px 20px" href="https://kuler.adobe.com/explore/most-popular/?time=month">Visit Kuler</a>
 			</p>
 		</div>
@@ -68,8 +71,11 @@ class JFormFieldScripts extends JFormField
 						triggerdemo();
 					} 
 					
-					else {
-						countupdemo()
+					if(jQuery("label[for='jform_params_display1']").hasClass('active')) {
+						countupdemo();
+					}
+					if(jQuery("label[for='jform_params_display2']").hasClass('active')) {
+						circulardemo();
 					}
 					
 					// Toggle demos on click
@@ -79,8 +85,11 @@ class JFormFieldScripts extends JFormField
 							triggerdemo();
 						} 
 						
-						else {
-							countupdemo()
+						if(jQuery("label[for='jform_params_display1']").hasClass('active')) {
+							countupdemo();
+						}
+						if(jQuery("label[for='jform_params_display2']").hasClass('active')) {
+							circulardemo();
 						}
 					
 					});
@@ -113,8 +122,11 @@ class JFormFieldScripts extends JFormField
 							triggerdemo();
 						} 
 						
-						else {
-							countupdemo()
+						if(jQuery("label[for='jform_params_display1']").hasClass('active')) {
+							countupdemo();
+						}
+						if(jQuery("label[for='jform_params_display2']").hasClass('active')) {
+							circulardemo();
 						}
 
 						return false;
@@ -129,19 +141,22 @@ class JFormFieldScripts extends JFormField
 							triggerdemo();
 						} 
 						
-						else {
-							countupdemo()
+						if(jQuery("label[for='jform_params_display1']").hasClass('active')) {
+							countupdemo();
 						}
+						if(jQuery("label[for='jform_params_display2']").hasClass('active')) {
+							circulardemo();
+						}					
 					});
 					
 					
 					// Fade in colour wheel
 					// Get the skill and corresponding skill info we just activated
-					jQuery('#skills-demo .zen-skillbar').live('click', function() {
-						jQuery('#skills-demo .zen-skillbar').removeClass('active').addClass('inactive');
+					jQuery('#skills-demo .zen-skillbar,#skills-demo .skill-circle').live('click', function() {
+						jQuery('#skills-demo .zen-skillbar,#skills-demo .skill-circle').removeClass('active').addClass('inactive');
 						jQuery(this).removeClass('inactive').addClass('active');
 						jQuery('.minicolors').fadeIn();
-					  	var index = jQuery( "#skills-demo .zen-skillbar" ).index( this ) + 1;
+					  	var index = jQuery( "#skills-demo .zen-skillbar,#skills-demo .skill-circle" ).index( this ) + 1;
 					  	jQuery('#skills-field fieldset').removeClass('active');
 					  	jQuery('#skills-field fieldset:nth-child('+index+')').addClass('active');
 					});
@@ -151,18 +166,30 @@ class JFormFieldScripts extends JFormField
 					jQuery('#jform_params_color').live('bind', function() {
 						getcolors() 
 						getvalues();
+						
+						if(jQuery("label[for='jform_params_display2']").hasClass('active')) {
+							circulardemo();
+						}
 					});
 					
 					// On Blur
 					jQuery('#jform_params_color').live('blur', function() {
 						getcolors() 
 						getvalues();
+						
+						if(jQuery("label[for='jform_params_display2']").hasClass('active')) {
+							circulardemo();
+						}
 					});
 					
 					// On click
 					jQuery('.minicolors span').live('click', function() {
 						getcolors() 
 						getvalues();
+						
+						if(jQuery("label[for='jform_params_display2']").hasClass('active')) {
+							circulardemo();
+						}
 					});
 					
 					
@@ -191,6 +218,9 @@ class JFormFieldScripts extends JFormField
 						jQuery('#skills-demo .active .zen-skillbar-title').css({'background-color':darker});
 						jQuery('#skills-demo .zen-skillbar').removeClass('active').removeClass('inactive');
 						jQuery('fieldset.active .color').val(currentcolor + ','+ darker);
+						
+						// Circular
+						jQuery('#skills-demo .skill-circle.active').attr('data-fgcolor', currentcolor);
 						jQuery('.minicolors').fadeOut();
 					}
 					
@@ -257,6 +287,40 @@ class JFormFieldScripts extends JFormField
 								countup('#count-' + key + ' h2', total);
 							}
 						});
+						
+					}
+					
+					function circulardemo() {
+									
+						
+						
+						jQuery('#skills-demo').empty();
+						var skills = jQuery('#jform_params_skills').val();
+						
+						if (skills.indexOf("%") >= 0) {
+							alert('Please just add a whole number here without a % sign.');
+							return;
+						}
+						
+						
+						skills = skills.split('|');
+						
+						jQuery(skills).each(function( key, value) {
+							if(value !=="") {
+								var items = value.split(',');		
+		
+								jQuery("#skills-demo").append('<div id="skill-' + key + '" class="zen-skillcircle skill-count-item skill-count-item' + key +' skill-circle" data-dimension="250" data-text="' + items[1] +'%" data-info="" data-width="6" data-fontsize="38" data-percent="' + items[1] +'" data-fgcolor="'+items[2]+'" data-bgcolor="#fafafa" data-fill="#fff"></div>');
+								
+								// Animate the bar
+								jQuery("#skill-" + key).circliful();
+								jQuery("#skill-" + key).append('<p>' + items[0] +'</p>');
+							}
+						});
+						
+						if(jQuery('.zen-skillcircle').length) {
+							jQuery('#help-panel').fadeIn();
+						}
+						
 						
 					}
 					
@@ -466,6 +530,32 @@ class JFormFieldScripts extends JFormField
 						width: 100%;
 						margin: 0;
 					}
+				}
+				
+				
+				/* -- Circle --*/
+				
+				.circliful {
+				    position: relative; 
+				}
+				
+				.circle-text, .circle-info, .circle-text-half, .circle-info-half {
+				    width: 100%;
+				    position: absolute;
+				    text-align: center;
+				    display: inline-block;
+				    left: 0;
+				    cursor: pointer;
+				}
+				
+				.circle-info, .circle-info-half {
+					color: #999;
+				}
+				
+				.circliful .fa {
+					margin: -10px 3px 0 3px;
+					position: relative;
+					bottom: 4px;
 				}
 				</style>
 			<?php
