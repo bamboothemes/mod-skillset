@@ -15,7 +15,7 @@ foreach ( $skills as $skill ) {
 		
 	$skill = explode(',', $skill); ?>
 			
-	<div class="zen-skillbar clearfix " data-percent="<?php echo $skill[1];?>%">
+	<div class="zen-skillbar zen-skillbar-<?php echo $module->id;?> clearfix " data-percent="<?php echo $skill[1];?>%">
 		<div class="zen-skillbar-title" style="background: <?php echo $skill[3];?>"><span><?php echo $skill[0];?></span></div>
 		<div class="zen-skillbar-bar" style="background: <?php echo $skill[2];?>"></div>
 		<div class="zen-skill-bar-percent"><?php echo $skill[1];?>%</div>
@@ -27,7 +27,7 @@ foreach ( $skills as $skill ) {
 // Only trigger the effect if the item is visible
 jQuery(window).scroll(function(event) {
   
-  jQuery('.zen-skillbar').each(function(i, el){
+  jQuery('.zen-skillbar-<?php echo $module->id;?>').each(function(i, el){
   
   	var el = jQuery(el);
   	

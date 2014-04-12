@@ -17,7 +17,7 @@ foreach ( $skills as $key => $skill ) {
 	$count = str_replace('%', '', $skill[1]);
 ?>
 		
-	<div id="count-<?php echo $key;?>-<?php echo $module->id;?>" class="skill-count-item skill-count-items-<?php echo $totalitems;?> skill-count-item<?php echo $key;?>">
+	<div id="count-<?php echo $key;?>-<?php echo $module->id;?>" class="skill-count-item skill-count-item-<?php echo $module->id;?> skill-count-items-<?php echo $totalitems;?> skill-count-item<?php echo $key;?>">
 			<h2></h2>
 			<p><strong><?php echo $skill[0];?></strong></p>
 	</div>
@@ -26,7 +26,7 @@ foreach ( $skills as $key => $skill ) {
 			
 	// Only trigger the effect if the item is visible
 	jQuery(window).scroll(function(event) {
-		jQuery('.skill-count-item').each(function(i, el){
+		jQuery('.skill-count-item-<?php echo $module->id;?>').each(function(i, el){
 			var el = jQuery(el);
 			if (el.visible(true)) {
 				if(jQuery('#count-<?php echo $key;?>-<?php echo $module->id;?> h2').text() == '') {

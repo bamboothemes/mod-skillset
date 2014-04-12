@@ -72,7 +72,8 @@
 	
 /* --- Skill Count --*/
 	
-.skill-count-item {
+.skill-count-item,
+.skill-circle-item {
 	float: left;
 	margin-left: 2%;
 	text-align: center;
@@ -92,16 +93,18 @@
 }
 
 .skill-count-items-3 {
-	width: 31%;	
+	width: 31% !important;	
 }
 
 .skill-count-items-4 {
 	width: 23%;	
 }
 
-@media screen and (max-width:620px) {
-	.skill-count-item {
-		width: 100%;
+@media screen and (max-width:700px) {
+	.skill-count-item,
+	.skill-circle-item
+	 {
+		width: 100% !important;
 		margin: 0;
 	}
 }

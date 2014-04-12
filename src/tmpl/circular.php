@@ -9,15 +9,16 @@ defined('_JEXEC') or die;
 
 $skills = rtrim($params->get('skills'), "|");
 $skills = explode('|', $skills);
-$totalitems = count($skills);
+$totalitems = count($skills); ?>
 
-		foreach ( $skills as $key=>$skill ) { 
+<div class="zen-skills-container">
+		<?php foreach ( $skills as $key=>$skill ) { 
 
 			$skill = explode(',', $skill);
 			
 		?>
 		
-		<div id="skill-<?php echo $key;?>-<?php echo $module->id;?>" class="skill-count-item skill-count-item-<?php echo $totalitems;?>" data-dimension="250" data-text="<?php echo $skill[1];?>%" data-info="" data-width="6" data-fontsize="38" data-percent="<?php echo $skill[1];?>" data-fgcolor="<?php echo $skill[2];?>" data-bgcolor="#fafafa" data-fill="#fff"></div>
+		<div id="skill-<?php echo $key;?>-<?php echo $module->id;?>" class="skill-circle-item skill-circle-item-<?php echo $module->id;?> skill-count-item<?php echo $key;?>" data-dimension="250" data-text="<?php echo $skill[1];?>%" data-info="" data-width="6" data-fontsize="38" data-percent="<?php echo $skill[1];?>" data-fgcolor="<?php echo $skill[2];?>" data-bgcolor="#fafafa" data-fill="#fff"></div>
 		
 		
 			
@@ -26,7 +27,7 @@ $totalitems = count($skills);
 			
 				// Only trigger the effect if the item is visible
 				jQuery(window).scroll(function(event) {
-					jQuery('.skill-count-item').each(function(i, el){
+					jQuery('.skill-circle-item-<?php echo $module->id;?>').each(function(i, el){
 						var el = jQuery(el);
 						if (el.visible(true)) {
 							if(jQuery('#skill-<?php echo $key;?>-<?php echo $module->id;?>').text() == '') {
@@ -45,7 +46,7 @@ $totalitems = count($skills);
 			</script>
 		
 		<?php } ?>
-		
+</div>
 		<script src="modules/mod_skillset/js/jquery.circliful.min.js"></script>
 				
 <script>
