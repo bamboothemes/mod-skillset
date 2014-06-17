@@ -1,7 +1,11 @@
 <?php
 /**
- * @copyright	@copyright	Copyright (c) 2014 Joomla. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package		Skillset
+ * @subpackage	Skillset
+ * @author		Joomla Bamboo - design@joomlabamboo.com
+ * @copyright 	Copyright (c) 2014 Joomla Bamboo. All rights reserved.
+ * @license		GNU General Public License version 2 or later
+ * @version		1.0.0
  */
 
 // no direct access

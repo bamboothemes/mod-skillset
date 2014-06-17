@@ -1,7 +1,11 @@
 <?php
 /**
- * @copyright	Copyright (c) 2014 Joomla. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package		Skillset
+ * @subpackage	Skillset
+ * @author		Joomla Bamboo - design@joomlabamboo.com
+ * @copyright 	Copyright (c) 2014 Joomla Bamboo. All rights reserved.
+ * @license		GNU General Public License version 2 or later
+ * @version		1.0.0
  */
 
 // no direct access
@@ -24,6 +28,21 @@ foreach ( $skills as $skill ) {
 <?php } ?>
 		
 <script>
+jQuery( document ).ready(function() {
+	// If Visible
+	jQuery('.zen-skillbar-<?php echo $module->id;?>').each(function(i, el){
+	
+		var el = jQuery(el);
+		
+		if (el.visible(true)) {
+		  jQuery(this).find('.zen-skillbar-bar').animate({
+		  	width:jQuery(this).attr('data-percent')
+		  },3000); 
+	
+		}
+		 
+	 });
+	 
 // Only trigger the effect if the item is visible
 jQuery(window).scroll(function(event) {
   
@@ -41,7 +60,7 @@ jQuery(window).scroll(function(event) {
    });
    
 });
-
+});
 
 (function($) {
 	

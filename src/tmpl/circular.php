@@ -1,7 +1,11 @@
 <?php
 /**
- * @copyright	Copyright (c) 2014 Joomla. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package		Skillset
+ * @subpackage	Skillset
+ * @author		Joomla Bamboo - design@joomlabamboo.com
+ * @copyright 	Copyright (c) 2014 Joomla Bamboo. All rights reserved.
+ * @license		GNU General Public License version 2 or later
+ * @version		1.0.0
  */
 
 // no direct access
@@ -24,6 +28,18 @@ $totalitems = count($skills); ?>
 			
 			<script>
 			jQuery( document ).ready(function() {
+			
+				// If visible
+				jQuery('.skill-circle-item-<?php echo $module->id;?>').each(function(i, el){
+					var el = jQuery(el);
+					if (el.visible(true)) {
+						if(jQuery('#skill-<?php echo $key;?>-<?php echo $module->id;?>').text() == '') {
+							 jQuery('#skill-<?php echo $key;?>-<?php echo $module->id;?>').circliful();
+							 jQuery('#skill-<?php echo $key;?>-<?php echo $module->id;?>').append('<p><?php echo $skill[0];?></p>');
+							 
+					  	}
+					}
+				});
 			
 				// Only trigger the effect if the item is visible
 				jQuery(window).scroll(function(event) {

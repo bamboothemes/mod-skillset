@@ -1,7 +1,11 @@
 <?php
 /**
- * @copyright	Copyright (c) 2014 Joomla. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package		Skillset
+ * @subpackage	Skillset
+ * @author		Joomla Bamboo - design@joomlabamboo.com
+ * @copyright 	Copyright (c) 2014 Joomla Bamboo. All rights reserved.
+ * @license		GNU General Public License version 2 or later
+ * @version		1.0.0
  */
 
 // no direct access
@@ -23,9 +27,9 @@ foreach ( $skills as $key => $skill ) {
 	</div>
 	
 	<script>
-			
-	// Only trigger the effect if the item is visible
-	jQuery(window).scroll(function(event) {
+	
+	jQuery( document ).ready(function() {
+		// If visible
 		jQuery('.skill-count-item-<?php echo $module->id;?>').each(function(i, el){
 			var el = jQuery(el);
 			if (el.visible(true)) {
@@ -34,8 +38,19 @@ foreach ( $skills as $key => $skill ) {
 			  	}
 			}
 		});
+				
+		// Only trigger the effect if the item is visible
+		jQuery(window).scroll(function(event) {
+			jQuery('.skill-count-item-<?php echo $module->id;?>').each(function(i, el){
+				var el = jQuery(el);
+				if (el.visible(true)) {
+					if(jQuery('#count-<?php echo $key;?>-<?php echo $module->id;?> h2').text() == '') {
+						countup('#count-<?php echo $key;?>-<?php echo $module->id;?> h2', '<?php echo $count;?>');
+				  	}
+				}
+			});
+		});
 	});
-	
 	</script>
 	<?php } ?>
 	

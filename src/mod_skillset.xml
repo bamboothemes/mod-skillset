@@ -4,10 +4,10 @@
 	<author>Joomla Bamboo</author>
 	<creationDate>March 19, 2014</creationDate>
 	<copyright>Copyright (c) 2014 Copyright (C), Joomlabamboo. All Rights Reserved.. All rights reserved.</copyright>
-	<license>Copyright Joomlabamboo 2014</license>
+		<license>GNU General Public License version 2 or later</license>
 	<authorEmail>design@joomlabamboo.com</authorEmail>
 	<authorUrl>www.joomlabamboo.com</authorUrl>
-	<version>${jb.latest}</version>
+	<version>v1.2.0</version>
 	<description><![CDATA[
 	
 
