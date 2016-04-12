@@ -66,6 +66,7 @@ $fontsize = str_replace('px','',$params->get('circle_fontsize'));?>
 		
 		<?php } ?>
 </div>
+<div class="clearfix"></div>
 		<script src="modules/mod_skillset/js/jquery.circliful.min.js"></script>
 				
 <script>
