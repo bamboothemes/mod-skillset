@@ -13,7 +13,10 @@ defined('_JEXEC') or die;
 
 $skills = rtrim($params->get('skills'), "|");
 $skills = explode('|', $skills);
-$totalitems = count($skills); ?>
+$totalitems = count($skills); 
+$thickness = $params->get('circle_thickness');
+$diameter = $params->get('circle_diameter');
+$fontsize = str_replace('px','',$params->get('circle_fontsize'));?>
 
 <div class="zen-skills-container">
 		<?php foreach ( $skills as $key=>$skill ) { 
@@ -22,7 +25,7 @@ $totalitems = count($skills); ?>
 			
 		?>
 		
-		<div id="skill-<?php echo $key;?>-<?php echo $module->id;?>" class="skill-circle-item skill-circle-item-<?php echo $module->id;?> skill-count-item<?php echo $key;?>" data-dimension="250" data-text="<?php echo $skill[1];?>%" data-info="" data-width="6" data-fontsize="38" data-percent="<?php echo $skill[1];?>" data-fgcolor="<?php echo $skill[2];?>" data-bgcolor="#fafafa" data-fill="#fff"></div>
+		<div id="skill-<?php echo $key;?>-<?php echo $module->id;?>" class="skill-circle-item skill-circle-item-<?php echo $module->id;?> skill-count-item<?php echo $key;?>" data-dimension="<?php echo $diameter;?>" data-text="<?php echo $skill[1];?>%" data-info="" data-width="<?php echo $thickness;?>" data-fontsize="<?php echo $fontsize;?>" data-percent="<?php echo $skill[1];?>" data-fgcolor="<?php echo $skill[2];?>" data-bgcolor="#fafafa" data-fill="#fff"></div>
 		
 		
 			
