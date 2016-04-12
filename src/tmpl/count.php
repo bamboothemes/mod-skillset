@@ -53,7 +53,7 @@ foreach ( $skills as $key => $skill ) {
 	});
 	</script>
 	<?php } ?>
-	
+	<div class="clearfix"></div>
 	<script>				
 	function countup(element, total) {
 	   
