@@ -7,7 +7,7 @@
 		<license>GNU General Public License version 2 or later</license>
 	<authorEmail>design@joomlabamboo.com</authorEmail>
 	<authorUrl>www.joomlabamboo.com</authorUrl>
-	<version>v1.3.0</version>
+	<version>v1.4.0</version>
 	<description><![CDATA[
 	
 
@@ -45,9 +45,15 @@
 				  <option value="0">No</option>
 				  <option value="1">Yes</option>
 				</field>
+				<field type="spacer" label="" />
+				<field name="spacer-circle" type="spacer" label="Circle Options"  />
 				<field name="circle_diameter" type="text" default="250" label="Circle Diameter" description="Defines the diameter of the circle" />
 				<field name="circle_thickness" type="text" default="6" label="Circle Thickness" description="Defines the width of the circle" />
 				<field name="circle_fontsize" type="text" default="38" label="Circle Font Size" description="Defines the fontsize for the % shown in the circle." />
+				<field name="circle_color" type="color" default="#333" label="Circle Color" description="Select the colour used for circle layout." />
+				<field name="circle_fill" type="color" default="#fff" label="Circle Background Color" description="Select the background colour used for circle layout." />
+				<field type="spacer" />
+				<field name="spacer-options" type="spacer" label="Module Options" />
 				<field name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="PARAMMODULECLASSSUFFIX" />
 			</fieldset>
 		</fields>

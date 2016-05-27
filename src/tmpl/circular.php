@@ -15,6 +15,8 @@ $skills = rtrim($params->get('skills'), "|");
 $skills = explode('|', $skills);
 $totalitems = count($skills); 
 $thickness = $params->get('circle_thickness');
+$fill = $params->get('circle_fill', '#fff');
+$circle_color = $params->get('circle_color', '#333');
 $diameter = $params->get('circle_diameter');
 $fontsize = str_replace('px','',$params->get('circle_fontsize'));?>
 
@@ -25,11 +27,9 @@ $fontsize = str_replace('px','',$params->get('circle_fontsize'));?>
 			
 		?>
 		
-		<div id="skill-<?php echo $key;?>-<?php echo $module->id;?>" class="skill-circle-item skill-circle-item-<?php echo $module->id;?> skill-count-item<?php echo $key;?>" data-dimension="<?php echo $diameter;?>" data-text="<?php echo $skill[1];?>%" data-info="" data-width="<?php echo $thickness;?>" data-fontsize="<?php echo $fontsize;?>" data-percent="<?php echo $skill[1];?>" data-fgcolor="<?php echo $skill[2];?>" data-bgcolor="#fafafa" data-fill="#fff"></div>
+		<div id="skill-<?php echo $key;?>-<?php echo $module->id;?>" class="skill-circle-item skill-circle-item-<?php echo $module->id;?> skill-count-item<?php echo $key;?>" data-dimension="<?php echo $diameter;?>" data-text="<?php echo $skill[1];?>%" data-info="" data-width="<?php echo $thickness;?>" data-fontsize="<?php echo $fontsize;?>" data-percent="<?php echo $skill[1];?>" data-fgcolor="<?php echo $skill[2];?>" data-bgcolor="<?php echo $fill;?>" data-fill="<?php echo $fill;?>" style="color: <?php echo $circle_color;?>;"></div>
 		
-		
-			
-			<script>
+		<script>
 			jQuery( document ).ready(function() {
 			
 				// If visible

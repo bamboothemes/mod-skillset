@@ -155,7 +155,7 @@ class JFormFieldScripts extends JFormField
 					jQuery('#skills-demo .zen-skillbar,#skills-demo .skill-circle').live('click', function() {
 						jQuery('#skills-demo .zen-skillbar,#skills-demo .skill-circle').removeClass('active').addClass('inactive');
 						jQuery(this).removeClass('inactive').addClass('active');
-						jQuery('.minicolors').fadeIn();
+						jQuery('#general .minicolors').fadeIn();
 					  	var index = jQuery( "#skills-demo .zen-skillbar,#skills-demo .skill-circle" ).index( this ) + 1;
 					  	jQuery('#skills-field fieldset').removeClass('active');
 					  	jQuery('#skills-field fieldset:nth-child('+index+')').addClass('active');
@@ -183,7 +183,7 @@ class JFormFieldScripts extends JFormField
 					});
 					
 					// On click
-					jQuery('.minicolors span').live('click', function() {
+					jQuery('#general .minicolors span').live('click', function() {
 						getcolors() 
 						getvalues();
 						
@@ -214,14 +214,14 @@ class JFormFieldScripts extends JFormField
 					function getcolors() {
 						var currentcolor = jQuery('#jform_params_color').val();
 						var darker = ColorLuminance(currentcolor, -0.1)
-						jQuery('#skills-demo .active .zen-skillbar-bar').css({'background-color':currentcolor});
-						jQuery('#skills-demo .active .zen-skillbar-title').css({'background-color':darker});
-						jQuery('#skills-demo .zen-skillbar').removeClass('active').removeClass('inactive');
+						jQuery('#general .active .zen-skillbar-bar').css({'background-color':currentcolor});
+						jQuery('#general .active .zen-skillbar-title').css({'background-color':darker});
+						jQuery('#general .zen-skillbar').removeClass('active').removeClass('inactive');
 						jQuery('fieldset.active .color').val(currentcolor + ','+ darker);
 						
 						// Circular
-						jQuery('#skills-demo .skill-circle.active').attr('data-fgcolor', currentcolor);
-						jQuery('.minicolors').fadeOut();
+						jQuery('#general .skill-circle.active').attr('data-fgcolor', currentcolor);
+						jQuery('#general .minicolors').fadeOut();
 					}
 					
 					
@@ -404,8 +404,8 @@ class JFormFieldScripts extends JFormField
 				border: 1px solid #e5e5e5;
 				border-radius: 4px;
 			}
-			.minicolors,
-			input.color,
+			#general .minicolors,
+			#general input.color,
 			#jform_params_skills,
 			#jform_params_skills-lbl,
 			#holder {
